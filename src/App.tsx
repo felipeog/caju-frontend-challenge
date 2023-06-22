@@ -1,11 +1,17 @@
-import Button from "@mui/material/Button";
+import { SWRConfig } from "swr";
 
-function App() {
+import { Home } from "@/pages/Home";
+
+export function App() {
   return (
-    <div>
-      <Button variant="contained">Hello World</Button>
-    </div>
+    <SWRConfig
+      value={{
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+      }}
+    >
+      <Home />
+    </SWRConfig>
   );
 }
-
-export { App };
