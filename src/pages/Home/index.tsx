@@ -34,15 +34,12 @@ export function Home() {
       <Typography variant="h5">randomJokeResult</Typography>
       <pre>{JSON.stringify(randomJokeResult.data, null, 2)}</pre>
       <br />
-
       <Typography variant="h5">jokeByIdResult</Typography>
       <pre>{JSON.stringify(jokeByIdResult.data, null, 2)}</pre>
       <br />
-
       <Typography variant="h5">jokesByTermResult</Typography>
       <pre>{JSON.stringify(jokesByTermResult.data, null, 2)}</pre>
       <br />
-
       <Typography variant="h5">jokesResult</Typography>
       <pre>{JSON.stringify(jokesResult.data, null, 2)}</pre>
     </div>
