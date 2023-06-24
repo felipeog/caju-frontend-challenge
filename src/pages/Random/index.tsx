@@ -1,6 +1,6 @@
 import { useRandomJoke } from "@/api/useRandomJoke";
 
-export function RandomJoke() {
+export function Random() {
   const result = useRandomJoke();
 
   if (result.error) {
@@ -12,7 +12,7 @@ export function RandomJoke() {
   }
 
   return (
-    <div className="RandomJoke">
+    <div className="Random">
       <pre>{JSON.stringify(result.data, null, 2)}</pre>
     </div>
   );

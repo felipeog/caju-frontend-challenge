@@ -1,6 +1,6 @@
 import { useJokesByTerm } from "@/api/useJokesByTerm";
 
-export function JokeSearch() {
+export function Search() {
   const result = useJokesByTerm({ term: "hipster", page: 1 });
 
   if (result.error) {
@@ -12,7 +12,7 @@ export function JokeSearch() {
   }
 
   return (
-    <div className="JokeSearch">
+    <div className="Search">
       <pre>{JSON.stringify(result.data, null, 2)}</pre>
     </div>
   );
