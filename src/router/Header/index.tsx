@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link, matchPath, useLocation } from "react-router-dom";
-import { Tab, Tabs } from "@mui/material";
+import { Container, Tab, Tabs } from "@mui/material";
 
 const ROUTE_PATTERNS = [
   "/",
@@ -24,7 +24,7 @@ function Header() {
   }, [location.pathname]);
 
   return (
-    <nav className="Header">
+    <Container className="Header" component="nav" fixed>
       <Tabs value={currentTab}>
         <Tab label="Home" value="/" to="/" component={Link} />
         <Tab label="Jokes" value="/jokes" to="/jokes" component={Link} />
@@ -33,7 +33,7 @@ function Header() {
         <Tab label="About" value="/about" to="/about" component={Link} />
         <Tab label="Starred" value="/starred" to="/starred" component={Link} />
       </Tabs>
-    </nav>
+    </Container>
   );
 }
 
