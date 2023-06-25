@@ -21,7 +21,7 @@ export function Starred() {
   return (
     <div className="Starred">
       <Typography variant="caption" display="block" mb={4} textAlign="center">
-        {result?.data?.length ?? 0} of {STARS_LIMIT} jokes starred
+        {result?.data?.length ?? "..."} of {STARS_LIMIT} jokes starred
       </Typography>
 
       {result.isLoading ? (
