@@ -25,7 +25,7 @@ export function About() {
         }}
       />
 
-      <Typography textAlign="center" mt={4}>
+      <Typography variant="caption" display="block" textAlign="center" mt={4}>
         Credits to{" "}
         <a
           href="https://icanhazdadjoke.com/about"
