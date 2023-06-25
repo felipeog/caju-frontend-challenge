@@ -15,12 +15,13 @@ export function About() {
 
       <img
         src={DadJokeMeme}
-        alt="Dad Jokes"
+        alt="Dad Joke meme"
         style={{
           display: "block",
           width: "100%",
           maxWidth: "700px",
           margin: "0 auto",
+          borderRadius: ".4rem",
         }}
       />
     </div>

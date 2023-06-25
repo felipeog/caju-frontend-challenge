@@ -2,13 +2,12 @@ import { useMemo } from "react";
 import { Link, matchPath, useLocation } from "react-router-dom";
 import { Container, Tab, Tabs } from "@mui/material";
 
-const ROUTE_PATTERNS = ["/", "/random", "/search", "/about", "/starred"];
-
 function Header() {
   const location = useLocation();
 
   const currentTab = useMemo(() => {
-    const currentPattern = ROUTE_PATTERNS.find((pattern) =>
+    const routePatterns = ["/", "/random", "/search", "/about", "/starred"];
+    const currentPattern = routePatterns.find((pattern) =>
       matchPath(pattern, location.pathname)
     );
     const match = matchPath(currentPattern ?? "", location.pathname);

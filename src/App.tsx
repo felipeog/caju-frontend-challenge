@@ -3,8 +3,8 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 
-import { theme } from "@/theme";
 import { Router } from "@/router/Router";
+import { theme } from "@/theme";
 
 export function App() {
   return (

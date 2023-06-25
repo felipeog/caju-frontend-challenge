@@ -1,6 +1,7 @@
+import { Typography } from "@mui/material";
+
 import { useJokes } from "@/api/useJokes";
 import { PaginatedSearch } from "@/components/PaginatedSearch";
-import { Typography } from "@mui/material";
 
 export function Home() {
   const result = useJokes({ term: "" });

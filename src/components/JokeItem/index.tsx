@@ -1,6 +1,6 @@
 import { MouseEvent } from "react";
-import StarIcon from "@mui/icons-material/Star";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import StarIcon from "@mui/icons-material/Star";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import {
   Box,
@@ -10,14 +10,14 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useSnackbar } from "notistack";
 import { Link } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
+import { useSnackbar } from "notistack";
 
-import { IJokeResponse } from "@/types/IJokeResponse";
-import { IJoke } from "@/types/IJoke";
 import { STARRED_KEY } from "@/constants/starredKey";
 import { STARS_LIMIT } from "@/constants/starsLimit";
+import { IJoke } from "@/types/IJoke";
+import { IJokeResponse } from "@/types/IJokeResponse";
 
 interface IJokeItemProps {
   joke: IJoke | IJokeResponse;

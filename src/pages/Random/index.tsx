@@ -1,6 +1,7 @@
+import { Box, Button, CircularProgress } from "@mui/material";
+
 import { useRandomJoke } from "@/api/useRandomJoke";
 import { JokeItem } from "@/components/JokeItem";
-import { Box, Button, CircularProgress } from "@mui/material";
 
 export function Random() {
   const result = useRandomJoke();

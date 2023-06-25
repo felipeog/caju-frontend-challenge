@@ -1,9 +1,10 @@
-import { useJokesById } from "@/api/useJokesById";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
+import { useReadLocalStorage } from "usehooks-ts";
+
 import { JokeItem } from "@/components/JokeItem";
 import { STARRED_KEY } from "@/constants/starredKey";
 import { STARS_LIMIT } from "@/constants/starsLimit";
-import { Box, CircularProgress, Stack, Typography } from "@mui/material";
-import { useReadLocalStorage } from "usehooks-ts";
+import { useJokesById } from "@/api/useJokesById";
 
 export function Starred() {
   const idsFromStorage = useReadLocalStorage<string[]>(STARRED_KEY) ?? [];

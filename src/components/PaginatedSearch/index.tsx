@@ -6,17 +6,17 @@ import {
   Typography,
 } from "@mui/material";
 
-import { JokeItem } from "@/components/JokeItem";
 import { IJoke } from "@/types/IJoke";
+import { JokeItem } from "@/components/JokeItem";
 
 interface IPaginatedSearchProps {
   result: {
     error: Error | undefined;
     isLoading: boolean;
-    jokes: IJoke[];
-    reachedEnd: boolean;
     isLoadingMore: boolean;
+    jokes: IJoke[];
     loadMore: () => void;
+    reachedEnd: boolean;
   };
 }
 

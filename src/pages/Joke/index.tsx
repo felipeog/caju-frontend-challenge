@@ -1,8 +1,8 @@
+import { Box, CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 
 import { useJokeById } from "@/api/useJokeById";
 import { JokeItem } from "@/components/JokeItem";
-import { Box, CircularProgress } from "@mui/material";
 
 export function Joke() {
   const params = useParams();
