@@ -13,7 +13,7 @@ function Layout() {
       <Container
         component="main"
         sx={{
-          my: (theme) => theme.spacing(5),
+          my: 4,
         }}
       >
         <Outlet />
