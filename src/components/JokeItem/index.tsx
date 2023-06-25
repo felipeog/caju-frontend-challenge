@@ -17,6 +17,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { IJokeResponse } from "@/types/IJokeResponse";
 import { IJoke } from "@/types/IJoke";
 import { STARRED_KEY } from "@/constants/starredKey";
+import { STARS_LIMIT } from "@/constants/starsLimit";
 
 interface IJokeItemProps {
   joke: IJoke | IJokeResponse;
@@ -27,6 +28,7 @@ export function JokeItem({ joke }: IJokeItemProps) {
   const { enqueueSnackbar } = useSnackbar();
 
   const isStarred = starred.includes(joke.id);
+  const reachedLimit = starred.length >= STARS_LIMIT;
 
   function handleCopyButtonClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -37,6 +39,10 @@ export function JokeItem({ joke }: IJokeItemProps) {
 
   function handleAddStarButtonClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
+
+    if (reachedLimit) {
+      return;
+    }
 
     setStarred([...starred, joke.id]);
     enqueueSnackbar("Added to starred");
@@ -73,22 +79,34 @@ export function JokeItem({ joke }: IJokeItemProps) {
           }}
         >
           <Tooltip title="Copy to clipboard">
-            <IconButton onClick={handleCopyButtonClick}>
-              <ContentCopyIcon />
-            </IconButton>
+            <span onClick={handleCopyButtonClick}>
+              <IconButton>
+                <ContentCopyIcon />
+              </IconButton>
+            </span>
           </Tooltip>
 
           {isStarred ? (
             <Tooltip title="Remove from starred">
-              <IconButton onClick={handleRemoveStarButtonClick}>
-                <StarIcon />
-              </IconButton>
+              <span onClick={handleRemoveStarButtonClick}>
+                <IconButton>
+                  <StarIcon />
+                </IconButton>
+              </span>
             </Tooltip>
           ) : (
-            <Tooltip title="Add to starred">
-              <IconButton onClick={handleAddStarButtonClick}>
-                <StarOutlineIcon />
-              </IconButton>
+            <Tooltip
+              title={
+                reachedLimit
+                  ? `Limit of ${STARS_LIMIT} stars reached`
+                  : "Add to starred"
+              }
+            >
+              <span onClick={handleAddStarButtonClick}>
+                <IconButton disabled={reachedLimit}>
+                  <StarOutlineIcon />
+                </IconButton>
+              </span>
             </Tooltip>
           )}
         </Box>
