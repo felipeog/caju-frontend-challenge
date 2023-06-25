@@ -1,12 +1,29 @@
+import { useMemo } from "react";
 import { SWRConfig } from "swr";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import {
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 
 import { Router } from "@/router/Router";
-import { theme } from "@/theme";
 
 export function App() {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? "dark" : "light",
+        },
+      }),
+    [prefersDarkMode]
+  );
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline enableColorScheme>
