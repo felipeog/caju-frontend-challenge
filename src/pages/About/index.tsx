@@ -9,7 +9,7 @@ export function About() {
         Dad Jokes
       </Typography>
 
-      <Typography textAlign="center" mb={2}>
+      <Typography textAlign="center" mb={1}>
         Exact photo description of a dad joke in action
       </Typography>
 
@@ -24,6 +24,17 @@ export function About() {
           borderRadius: ".4rem",
         }}
       />
+
+      <Typography textAlign="center" mt={4}>
+        Credits to{" "}
+        <a
+          href="https://icanhazdadjoke.com/about"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          icanhazdadjoke
+        </a>
+      </Typography>
     </div>
   );
 }
