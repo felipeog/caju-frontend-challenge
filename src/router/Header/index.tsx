@@ -25,7 +25,7 @@ function Header() {
       }}
       fixed
     >
-      <Tabs value={currentTab}>
+      <Tabs value={currentTab} variant="scrollable" scrollButtons={false}>
         <Tab label="Dad Jokes" value="/" to="/" component={Link} />
         <Tab label="Random" value="/random" to="/random" component={Link} />
         <Tab label="Search" value="/search" to="/search" component={Link} />
