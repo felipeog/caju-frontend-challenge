@@ -1,4 +1,6 @@
 import { useRandomJoke } from "@/api/useRandomJoke";
+import { JokeItem } from "@/components/JokeItem";
+import { Box, Button, CircularProgress } from "@mui/material";
 
 export function Random() {
   const result = useRandomJoke();
@@ -8,12 +10,34 @@ export function Random() {
   }
 
   if (result.isLoading) {
-    return <div>Loading</div>;
+    return (
+      <Box display="flex" justifyContent="center" mt={4}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!result.data) {
+    return null;
+  }
+
+  function handleNewButtonClick() {
+    result.mutate();
   }
 
   return (
     <div className="Random">
-      <pre>{JSON.stringify(result.data, null, 2)}</pre>
+      <JokeItem joke={result.data} />
+
+      <Box display="flex" justifyContent="center" mt={4}>
+        <Button
+          variant="contained"
+          onClick={handleNewButtonClick}
+          disabled={result.isValidating}
+        >
+          New joke
+        </Button>
+      </Box>
     </div>
   );
 }

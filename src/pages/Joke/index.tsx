@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 
 import { useJokeById } from "@/api/useJokeById";
+import { JokeItem } from "@/components/JokeItem";
+import { Box, CircularProgress } from "@mui/material";
 
 export function Joke() {
   const params = useParams();
@@ -11,12 +13,20 @@ export function Joke() {
   }
 
   if (result.isLoading) {
-    return <div>Loading</div>;
+    return (
+      <Box display="flex" justifyContent="center" mt={4}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (!result.data) {
+    return null;
   }
 
   return (
     <div className="Joke">
-      <pre>{JSON.stringify(result.data, null, 2)}</pre>
+      <JokeItem joke={result.data} />
     </div>
   );
 }

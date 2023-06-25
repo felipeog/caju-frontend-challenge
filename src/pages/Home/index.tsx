@@ -1,15 +1,17 @@
+import { useJokes } from "@/api/useJokes";
+import { PaginatedSearch } from "@/components/PaginatedSearch";
 import { Typography } from "@mui/material";
-import { Link } from "react-router-dom";
 
 export function Home() {
+  const result = useJokes({ term: "" });
+
   return (
     <div className="Home">
-      <Typography variant="h1" textAlign="center">
+      <Typography variant="h1" textAlign="center" mb={4}>
         Dad Jokes
       </Typography>
 
-      <Link to="/jokes">Jokes</Link>
-      <Link to="/about">About</Link>
+      <PaginatedSearch result={result} />
     </div>
   );
 }
