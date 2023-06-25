@@ -1,37 +1,33 @@
 import useSWR from "swr";
 
-import { IJoke } from "@/types/IJoke";
-import { API_BASE_URL } from "@/api/consts";
+import { API_BASE_URL, FETCH_OPTIONS } from "@/api/consts";
+import { IJokeResponse } from "@/types/IJokeResponse";
 
 interface IProps {
   ids: string[];
 }
 
 async function fetcher({ ids }: IProps) {
-  const data: IJoke[] = [];
+  const data: IJokeResponse[] = [];
 
   for (let index = 0; index < ids.length; index++) {
     const id = ids[index];
-    const res = await fetch(`${API_BASE_URL}/j/${id}`, {
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const response = await fetch(`${API_BASE_URL}/j/${id}`, FETCH_OPTIONS);
 
-    if (!res.ok) {
-      throw new Error("Error fetching jokes by ID");
+    if (!response.ok) {
+      throw new Error("useJokeById");
     }
 
-    const joke: IJoke = await res.json();
+    const joke: IJokeResponse = await response.json();
 
     data.push(joke);
   }
 
-  return new Promise((resolve) => resolve(data)) as Promise<IJoke[]>;
+  return new Promise((resolve) => resolve(data)) as Promise<IJokeResponse[]>;
 }
 
 export function useJokesById(key: IProps) {
-  const jokesByIdResult = useSWR<IJoke[], Error>(
+  const result = useSWR<IJokeResponse[], Error>(
     {
       requestKey: "useJokeById",
       ids: key?.ids ?? [],
@@ -39,5 +35,5 @@ export function useJokesById(key: IProps) {
     fetcher
   );
 
-  return jokesByIdResult;
+  return result;
 }

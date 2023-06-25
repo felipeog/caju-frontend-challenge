@@ -1,34 +1,68 @@
-import useSWR from "swr";
+import { useCallback } from "react";
+import useSWRInfinite from "swr/infinite";
 
-import { IJokes } from "@/types/IJokes";
-import { API_BASE_URL } from "@/api/consts";
+import { API_BASE_URL, FETCH_OPTIONS } from "@/api/consts";
+import { PAGE_SIZE } from "@/constants/pageSize";
+import { IJoke } from "@/types/IJoke";
+import { IJokesResponse } from "@/types/IJokesResponse";
 
-interface IProps {
-  page: number;
+interface IFetcherProps {
+  page?: number;
+  term?: string;
 }
 
-async function fetcher({ page }: IProps) {
-  const res = await fetch(`${API_BASE_URL}/search?page=${page}`, {
-    headers: {
-      Accept: "application/json",
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error("Error listing jokes");
-  }
-
-  return res.json() as Promise<IJokes>;
+interface IHookProps {
+  term?: string;
 }
 
-export function useJokes(key: IProps) {
-  const jokesResults = useSWR<IJokes, Error>(
-    {
-      requestKey: "useJokes",
-      page: key?.page ?? 1,
-    },
-    fetcher
+async function fetcher({ page = 1, term = "" }: IFetcherProps) {
+  const response = await fetch(
+    `${API_BASE_URL}/search?page=${page}&limit=${PAGE_SIZE}&term=${term}`,
+    FETCH_OPTIONS
   );
 
-  return jokesResults;
+  if (!response.ok) {
+    throw new Error("useJokes");
+  }
+
+  return response.json() as Promise<IJokesResponse>;
+}
+
+export function useJokes(props: IHookProps) {
+  const result = useSWRInfinite<IJokesResponse, Error>(getKey, fetcher, {
+    revalidateAll: false,
+    revalidateFirstPage: false,
+  });
+
+  const data = result?.data ?? [];
+  const jokes = data.reduce((jokes: IJoke[], page) => {
+    if (!page?.results?.length) {
+      return jokes;
+    }
+
+    return [...jokes, ...page.results];
+  }, []);
+  const reachedEnd = Number(data[data.length - 1]?.results?.length) < PAGE_SIZE;
+
+  const loadMore = useCallback(() => {
+    result.setSize(result.size + 1);
+  }, [result]);
+
+  function getKey(pageIndex: number) {
+    const term = props?.term ?? "";
+
+    return {
+      requestKey: "useJokes",
+      page: pageIndex + 1,
+      term,
+    };
+  }
+
+  return {
+    ...result,
+    jokes,
+    reachedEnd,
+    isLoadingMore: !result.isLoading && result.isValidating,
+    loadMore,
+  };
 }

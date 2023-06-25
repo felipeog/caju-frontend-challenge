@@ -1,36 +1,25 @@
 import useSWR from "swr";
 
-import { IJoke } from "@/types/IJoke";
-import { API_BASE_URL } from "@/api/consts";
-
-export const REQUEST_KEYS = {
-  randomJoke: "randomJoke",
-  jokeById: "jokeById",
-  jokesByTerm: "jokesByTerm",
-  listJokes: "listJokes",
-};
+import { API_BASE_URL, FETCH_OPTIONS } from "@/api/consts";
+import { IJokeResponse } from "@/types/IJokeResponse";
 
 async function fetcher() {
-  const res = await fetch(API_BASE_URL, {
-    headers: {
-      Accept: "application/json",
-    },
-  });
+  const response = await fetch(API_BASE_URL, FETCH_OPTIONS);
 
-  if (!res.ok) {
-    throw new Error("Error fetching random joke");
+  if (!response.ok) {
+    throw new Error("useRandomJoke");
   }
 
-  return res.json() as Promise<IJoke>;
+  return response.json() as Promise<IJokeResponse>;
 }
 
 export function useRandomJoke() {
-  const randomJokeResult = useSWR<IJoke, Error>(
+  const result = useSWR<IJokeResponse, Error>(
     {
       requestKey: "useRandomJoke",
     },
     fetcher
   );
 
-  return randomJokeResult;
+  return result;
 }
