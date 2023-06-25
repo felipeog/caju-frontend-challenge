@@ -1,11 +1,11 @@
 import { IJoke } from "@/types/IJoke";
 
-export interface IJokes {
+export interface IJokesResponse {
   current_page: number;
   limit: number;
   next_page: number;
   previous_page: number;
-  results: Omit<IJoke, "status">[];
+  results: IJoke[];
   search_term: string;
   status: number;
   total_jokes: number;
