@@ -2,6 +2,7 @@ import { Box, Button, CircularProgress } from "@mui/material";
 
 import { useRandomJoke } from "@/api/useRandomJoke";
 import { JokeItem } from "@/components/JokeItem";
+import { amplitude } from "@/services/amplitude";
 
 export function Random() {
   const result = useRandomJoke();
@@ -24,6 +25,7 @@ export function Random() {
 
   function handleNewButtonClick() {
     result.mutate();
+    amplitude.track("New joke");
   }
 
   return (

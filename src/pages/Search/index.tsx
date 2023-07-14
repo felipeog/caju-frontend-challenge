@@ -4,6 +4,7 @@ import { useDebounce } from "usehooks-ts";
 
 import { useJokes } from "@/api/useJokes";
 import { PaginatedSearch } from "@/components/PaginatedSearch";
+import { amplitude } from "@/services/amplitude";
 
 export function Search() {
   const [term, setTerm] = useState("");
@@ -12,6 +13,9 @@ export function Search() {
 
   function handleTermInputChange(event: ChangeEvent<HTMLInputElement>) {
     setTerm(event.target.value);
+    amplitude.track("Search", {
+      term: event.target.value,
+    });
   }
 
   return (
