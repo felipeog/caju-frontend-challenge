@@ -16,6 +16,7 @@ import { useSnackbar } from "notistack";
 
 import { STARRED_KEY } from "@/constants/starredKey";
 import { STARS_LIMIT } from "@/constants/starsLimit";
+import { amplitude } from "@/services/amplitude";
 import { IJoke } from "@/types/IJoke";
 import { IJokeResponse } from "@/types/IJokeResponse";
 
@@ -35,6 +36,9 @@ export function JokeItem({ joke }: IJokeItemProps) {
 
     navigator.clipboard.writeText(joke.joke);
     enqueueSnackbar("Copied to clipboard");
+    amplitude.track("Copy to clipboard", {
+      jokeId: joke.id,
+    });
   }
 
   function handleAddStarButtonClick(event: MouseEvent<HTMLButtonElement>) {
@@ -46,6 +50,9 @@ export function JokeItem({ joke }: IJokeItemProps) {
 
     setStarred([...starred, joke.id]);
     enqueueSnackbar("Added to starred");
+    amplitude.track("Add to starred", {
+      jokeId: joke.id,
+    });
   }
 
   function handleRemoveStarButtonClick(event: MouseEvent<HTMLButtonElement>) {
@@ -53,6 +60,9 @@ export function JokeItem({ joke }: IJokeItemProps) {
 
     setStarred(starred.filter((id) => id !== joke.id));
     enqueueSnackbar("Removed from starred");
+    amplitude.track("Remove from starred", {
+      jokeId: joke.id,
+    });
   }
 
   return (
